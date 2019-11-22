@@ -9,14 +9,13 @@ class Login extends React.Component {
         console.log(props)
     }
     state = {
-        user: "Guest",
+        user: "Gość",
         addFamilyMember: 0
     }
 
-    handleChange = (e) => {
-        console.log('e.target.value', e.target.value);
+    handleChange = (u) => {
         this.setState({
-            user: e.target.value
+            user: u
         });
     }
 
@@ -29,12 +28,15 @@ class Login extends React.Component {
     render() {
         return (
             <>
-                <header>Rodzinna lista prezentowa</header>
-                <main>
-                    {!this.state.addFamilyMember && <section>
+                <header className="login-header">Rodzinna lista prezentowa</header>
+                <main className="login-main">
+                    {/* {!this.state.addFamilyMember && <section className="section-select-user">
                         <SelectUser onChange={this.handleChange} user={this.state.user} />
-                    </section>}
-                    <section>
+                    </section>} */}
+                    <section className={"section-select-user " + (this.state.addFamilyMember && "hide")}>
+                        <SelectUser onChange={this.handleChange} user={this.state.user} />
+                    </section>
+                    <section className="section-add-f-member">
                         {<AddFamilyMember onClick={this.handleClick} addFamilyMember={this.state.addFamilyMember} />}
                     </section>
                 </main>
