@@ -1,0 +1,252 @@
+.login-header {
+    display: flex;
+    width: 100%;
+    min-height: 25vh;
+    justify-content: center;
+    align-items: center;
+    font-size: 72px;
+    text-align: center;
+    padding-top: 64px;
+    padding-bottom: 64px;
+}
+
+.login-main {
+    display: flex;
+    flex-direction: column;
+}
+
+.section-select-user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 40vh;
+    background-color: #EAEAEA;
+    border-top: 1px solid #A0A0A0;
+    border-bottom: 1px solid #A0A0A0;
+}
+
+.hide {
+    min-height: 0;
+    border-bottom: 0;
+    transition: .2s;
+}  
+
+.display-none {
+    display: none !important;
+}
+
+.log-icon-cont {
+    margin-top: 32px;
+    margin-bottom: 16px;
+    width: 192px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.icon-login {
+    height: 64px;
+    width: 64px;
+}
+
+.browse-span {
+    font-size: 32px;
+    margin-bottom: 16px;
+}
+
+.user-sel-cont {
+    display: flex;
+    height: 40px;
+    margin-bottom: 32px;
+
+}
+
+.go-home-btn {
+    width: 40px;
+    height: 40px;
+    background-color: #176A15;
+    border: none;
+    cursor: pointer;
+    transition: .1s;
+}
+.go-home-btn:hover {
+    background-color: rgba(22, 106, 21, 0.8);
+}
+.go-home-btn:focus {
+    outline: none;
+}
+
+.go-home-arrow {
+    width: 24px;
+    height: 24px;
+}
+
+.section-add-f-member {
+    width: 100%;
+    background-color: white;
+} 
+
+.add-cont-first {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 32px;
+    font-size: 24px;
+}
+.add-user-btn {
+    width: 88px;
+    height: 48px;
+    margin-left: 16px;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+    transition: .1s;
+}
+
+.add-user-btn:hover {
+    background-color: #A0A0A0;
+}
+
+.add-user-btn:focus {
+    outline: none;
+}
+
+.user-icon {
+    width: 32px;
+    height: 32px;
+    margin-left: 8px;
+}
+
+.add-icon {
+    width: 24px;
+    height: 24px;
+    margin: 4px;
+}
+
+.add-cont-second {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 32px;
+    font-size: 32px;
+    text-align: center;
+}
+
+.custom-log-input {
+    width: 240px;
+    height: 32px;
+    padding: 5px 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    margin-top: 32px;
+    margin-bottom: 32px;
+    margin-right: 8px;
+    margin-left: 8px;
+}
+
+.custom-log-input:focus {
+    outline: 1px solid #A0A0A0;
+}
+
+.choose-avatar-cont {
+    width: 40vw;
+    margin-bottom: 32px;
+    text-align: left;
+
+}
+
+.title-choose-av {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.add-btn-group {
+    display: flex;
+    align-items: center;
+    transform: translateX(45px);
+}
+
+.save-avatar-btn {
+    width: 160px;
+    height: 40px;
+    background-color: #176A15;
+    color: #fafafa;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.save-avatar-btn:hover {
+    background-color: rgba(22, 106, 21, 0.8);
+}
+
+.save-avatar-btn:focus {
+    outline: none;
+}
+
+.add-cancel {
+    font-size: 20px;
+    margin-left: 16px;
+}
+.add-cancel:hover {
+    color: #AD3838;
+}
+
+@media (max-width: 992px) {
+    .login-header {
+        font-size: 64px;
+    }
+    .choose-avatar-cont {
+        width: 60vw;
+    }
+  }
+
+@media (max-width: 768px) {
+    .login-header {
+        font-size: 56px;
+        padding-top: 32px;
+        padding-bottom: 32px;
+    }
+    .browse-span {
+        font-size: 24px;
+    }
+    .add-cont-second {
+        font-size: 24px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+    .choose-avatar-cont {
+        width: 60vw;
+    }
+  }
+
+@media (max-width: 540px) {
+    .login-header {
+        font-size: 36px;
+
+    }
+    .add-cont-first {
+        flex-direction: column;
+        font-size: 18px;
+    }
+    .add-user-btn {
+        margin-top: 16px;
+    }
+    .choose-avatar-cont {
+        width: 90vw;
+    }
+    .add-btn-group {
+        flex-direction: column;
+        transform: none;
+    }
+    .add-cancel {
+        margin-top: 8px;
+        margin-left: 0;
+    }
+
+  }
