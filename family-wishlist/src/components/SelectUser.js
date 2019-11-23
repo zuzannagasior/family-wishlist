@@ -20,7 +20,7 @@ const userSelectStyle = {
     }),
     control: (provided, state) => ({
         ...provided,
-        outline: state.isFocused ? "none" : "none",
+        outline: state.isFocused ? "1px solid #A0A0A0" : "none",
         borderRadius: 0,
         borderColor: state.isFocused ? "#A0A0A0" : "#ccc",
         backgroundColor: "#fafafa",
@@ -54,12 +54,12 @@ const userSelectStyle = {
 const SelectUser = (props) => {
     return (
         <>
-            <div className="log-icon-cont">
+            <div className={"log-icon-cont "  + (props.addFamilyMember && "display-none")}>
                 <img className="icon-login" alt="userIcon" src={user} />
                 <img className="icon-login" alt="giftIcon" src={gift} />
             </div>
-            <span className="browse-span">Przeglądaj jako:</span>
-            <div className="user-sel-cont">
+            <span className={"browse-span "  + (props.addFamilyMember && "display-none")}>Przeglądaj jako:</span>
+            <div className={"user-sel-cont "  + (props.addFamilyMember && "display-none")}>
                 <Select
                     styles={userSelectStyle}
                     onChange={props.onChange}

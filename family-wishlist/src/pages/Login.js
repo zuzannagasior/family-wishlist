@@ -10,18 +10,24 @@ class Login extends React.Component {
     }
     state = {
         user: "Gość",
+        newUser: "",
         addFamilyMember: 0
     }
 
-    handleChange = (u) => {
-        this.setState({
-            user: u
-        });
+    handleSelectChange = (u) => {
+        this.setState({user: u});
+    }
+
+    handleInputChange = (e) => {
+        this.setState({newUser: e.target.value});
     }
 
     handleClick = () => {
         this.setState((prevState) => {
-            return { addFamilyMember: !prevState.addFamilyMember }
+            return { 
+                addFamilyMember: !prevState.addFamilyMember,
+                newUser: ""
+            }
         });
     }
 
@@ -30,14 +36,11 @@ class Login extends React.Component {
             <>
                 <header className="login-header">Rodzinna lista prezentowa</header>
                 <main className="login-main">
-                    {/* {!this.state.addFamilyMember && <section className="section-select-user">
-                        <SelectUser onChange={this.handleChange} user={this.state.user} />
-                    </section>} */}
-                    <section className={"section-select-user " + (this.state.addFamilyMember && "hide")}>
-                        <SelectUser onChange={this.handleChange} user={this.state.user} />
+                    <section className={"section-select-user "  + (this.state.addFamilyMember && "hide")}>
+                        <SelectUser onChange={this.handleSelectChange} user={this.state.user} addFamilyMember={this.state.addFamilyMember} />
                     </section>
-                    <section className="section-add-f-member">
-                        {<AddFamilyMember onClick={this.handleClick} addFamilyMember={this.state.addFamilyMember} />}
+                    <section className={"section-add-f-member"}>
+                        {<AddFamilyMember onClick={this.handleClick} onChange={this.handleInputChange} addFamilyMember={this.state.addFamilyMember} newUser={this.state.newUser} />}
                     </section>
                 </main>
             </>

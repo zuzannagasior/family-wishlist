@@ -18,8 +18,15 @@ const AddFamilyMember = (props) => {
             }
             {!!props.addFamilyMember &&
                 <div className="add-cont-second">
-                    <span>Dodaj nowego członka rodziny: </span>
-                    <NavLink to="/" onClick={props.onClick}>Anuluj</NavLink>
+                    <span>Dodaj nowego członka rodziny:</span>
+                    <input type="text" name="inputUsername" value={props.newUser} onChange={props.onChange} className="custom-log-input" placeholder="Podaj Imię..." />
+                    <div className="choose-avatar-cont">
+                        <span className="title-choose-av">Wybierz avatar</span>
+                        <div>avatarki - wybór</div>
+                    </div>
+                    <div className="add-btn-group">
+                        <button className="save-avatar-btn">Zapisz</button><NavLink to="/" onClick={props.onClick} className="add-cancel">Anuluj</NavLink>
+                    </div>
                 </div>
             }
         </>
