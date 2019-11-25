@@ -9,7 +9,7 @@ class Login extends React.Component {
         console.log(props)
     }
     state = {
-        user: "Gość",
+        user:  {value: 'Gość', label: 'Gość' },
         newUser: "",
         addFamilyMember: 0
     }
