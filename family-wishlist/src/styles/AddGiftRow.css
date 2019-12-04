@@ -1,16 +1,10 @@
-.wishlist-row {
+.add-gift-row {
     width: 100%;
     min-height: 64px;
     display: flex;
     justify-content: flex-end;
-}
-
-.row-1 {
-    background-color: #EAEAEA;
-}
-
-.row-2 {
     background-color: #F5F5F5;
+    border-top: 1px solid #3A3A3A;
 }
 
 .gift-order {
@@ -23,31 +17,33 @@
     margin-top: 2px;
 }
 
-.giftData {
+.addGiftData {
     flex-grow: 1;
     display: flex;
     width: calc(100% - 120px - 64px - 56px);
     flex-direction: column;
 }
 
-.giftData * {
+.addGiftData textarea {
     overflow-wrap: break-word;
-    margin-top: 4px;
+    margin-top: 8px;
     margin-bottom: 2px;
+    background-color: #F5F5F5;
+    border: none;
+    font-size: 16px;
+    resize: none;
 }
 
-.giftData * a{
-    color: #032902;
+.addGiftData textarea:focus {
+    outline: none;
 }
 
-.giftData * a:hover{
-    color: #085c05;
+.addGiftData textarea::placeholder {
+    color: #B4B4B4
 }
-
 
 .who-buys {
-    /* flex-basis: 120px; */
-    width: 120px;
+    flex-basis: 120px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -58,15 +54,13 @@
 }
 
 .action-btn-group {
-    /* flex-basis: 64px; */
-    width: 64px;
-
+    flex-basis: 64px;
     height: 100%;
     margin-top: auto;
     margin-bottom: auto;
 }
 
-.edit-pen {
+.accept-icon {
     width: 16px;
     height: 16px;
     cursor: pointer;

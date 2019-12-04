@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import WishlistRow from '../components/WishlistRow';
+import AddGiftRow from '../components/AddGiftRow';
 import avatar from '../assets/avatars/avatarrandom.svg';
 import binRed from '../assets/icons/bin-red.svg';
 import arrow from '../assets/icons/arrow-dark-grey.svg';
@@ -11,19 +12,19 @@ const wishlistData = [
         id: 0,
         order: 1,
         gift: "plakat",
-        giftLink: "www.plakat.pl"
+        giftUrl: "www.plakat.pl"
     },
     {
         id: 1,
         order: 2,
         gift: "kwiatek",
-        giftLink: "www.kwiatek.pl"
+        giftUrl: "www.kwiatek.pl"
     },
     {
         id: 2,
         order: 3,
         gift: "lodówka",
-        giftLink: "www.lodówka.pl"
+        giftUrl: "www.lodówka.pl"
     }
 ]
 
@@ -38,7 +39,14 @@ class UserWishlist extends React.Component {
 
     }
 
+    state = {
+        addGiftAvailable: false
+    }
 
+    addGift = () => {
+        console.log('addgift')
+        this.setState({ addGiftAvailable: true });
+    }
 
     render() {
 
@@ -68,12 +76,16 @@ class UserWishlist extends React.Component {
                                 <div className="table-header-2">Kto kupuje</div>
                             </div>
                             {wishlist}
+                            {this.state.addGiftAvailable && <AddGiftRow />}
                         </div>
-                        <div className="last-update">Ostania aktualizacja: 11-11-2019</div>
-                        <button className="add-gift">
-                            dodaj
-                            <img className="add-gift-gift" alt="avatarIcon" src={gift} />
-                        </button>
+                        {!this.state.addGiftAvailable &&
+                            <>
+                                <div className="last-update">Ostania aktualizacja: 11-11-2019</div>
+                                <button onClick={this.addGift} className="add-gift">
+                                    dodaj
+                                <img className="add-gift-gift" alt="avatarIcon" src={gift} />
+                                </button>
+                            </>}
                     </section>
                 </div>
             </>

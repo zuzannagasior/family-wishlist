@@ -5,7 +5,7 @@ import binGrey from '../assets/icons/bin-grey.svg';
 
 
 const WishlistRow = (props) => {
-
+    console.log(props)
     const { item } = props;
     return (
         <>
@@ -14,8 +14,8 @@ const WishlistRow = (props) => {
                     {item.order}
                 </div>
                 <div className="giftData">
-                    {item.gift}
-                    {item.giftUrl}
+                    <div className="gift-data-row">{item.gift}</div>
+                    <div className="gift-data-row"><a href={`http://${item.giftUrl}/`}>{item.giftUrl}</a></div>
                 </div>
                 <div className="who-buys">
                     Mikołaj
