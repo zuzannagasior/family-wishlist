@@ -66,7 +66,7 @@ const SelectUser = (props) => {
                     options={users}
                     defaultValue={users[0]}
                     />
-                <NavLink to={{ pathname: `/home/${props.user}` }}><button className="go-home-btn"><img className="go-home-arrow" alt="arrowIcon" src={arrow} /></button></NavLink>
+                <NavLink to={{ pathname: `/home/${props.user.value}` }}><button className="go-home-btn"><img className="go-home-arrow" alt="arrowIcon" src={arrow} /></button></NavLink>
             </div>
         </>
     );
