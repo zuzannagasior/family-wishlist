@@ -7,10 +7,21 @@
 
 .row-1 {
     background-color: #EAEAEA;
+    border-top: 1px solid #EAEAEA;
+    border-bottom: 1px solid #EAEAEA;
 }
 
 .row-2 {
     background-color: #F5F5F5;
+    border-top: 1px solid #F5F5F5;
+    border-bottom: 1px solid #F5F5F5;
+}
+
+
+.edit-borders {
+    border-top: 1px solid #3A3A3A;
+    border-bottom: 1px solid #3A3A3A;
+
 }
 
 .gift-order {
@@ -44,6 +55,20 @@
     color: #085c05;
 }
 
+.giftData input {
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    width: calc(100% - 4px);
+}
+
+.giftData input:focus {
+    outline: none;
+}
+
+.giftData input::placeholder {
+    color: #B4B4B4
+}
 
 .who-buys {
     /* flex-basis: 120px; */
@@ -57,6 +82,22 @@
     padding-bottom: 8px;
 }
 
+.who-buys input {
+    overflow-wrap: break-word;
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    width: 100px;
+}
+
+.who-buys input:focus {
+    outline: none;
+}
+
+.who-buys input::placeholder {
+    color: #B4B4B4
+}
+
 .action-btn-group {
     /* flex-basis: 64px; */
     width: 64px;
@@ -64,6 +105,8 @@
     height: 100%;
     margin-top: auto;
     margin-bottom: auto;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .edit-pen {
@@ -78,6 +121,11 @@
     height: 16px;
     cursor: pointer;
     margin: 0 12px;
+}
+
+.margin-lr-12 {
+    margin-left: 12px;
+    margin-right: 12px;
 }
 
 @media (max-width: 992px) {
