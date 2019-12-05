@@ -32,6 +32,8 @@ class UserWishlist extends React.Component {
     constructor(props) {
         super(props);
         this.isWishlistMine = (props.match.params.user === props.match.params.userWishlistId) ? 1 : 0;
+        // tst
+        // this.isWishlistMine = 1;
         console.log('this.isWishlistMine', this.isWishlistMine);
         console.log('props', props)
         this.sessionUser = props.match.params.user;
@@ -40,7 +42,7 @@ class UserWishlist extends React.Component {
     }
 
     state = {
-        addGiftAvailable: false
+        addGiftAvailable: false,
     }
 
     addGift = () => {
@@ -48,10 +50,18 @@ class UserWishlist extends React.Component {
         this.setState({ addGiftAvailable: true });
     }
 
+    delete = (e) => {
+        if(e.target.id === 'addGiftBin') {
+            this.setState({ addGiftAvailable: false });
+        } else if(e.target.id === 'deleteAccount') {
+            console.log('usuniecie konta');
+        }
+    }
+
     render() {
 
         let wishlist = wishlistData.map(item => (
-            <WishlistRow key={item.id} item={item} />
+            <WishlistRow key={item.id} item={item} isWishlistMine={this.isWishlistMine} />
         ));
 
         return (
@@ -62,7 +72,7 @@ class UserWishlist extends React.Component {
                         <div className="header-delete-section-cont">
                             <div className="header-delete-section">
                                 <header className="user-header">Zuzia</header>
-                                <div className="delete-account">
+                                <div id="deleteAccount" onClick={this.delete} className="delete-account">
                                     <img className="bin-icon" alt="binIcon" src={binRed} />Usuń konto
                             </div>
                             </div>
@@ -76,7 +86,7 @@ class UserWishlist extends React.Component {
                                 <div className="table-header-2">Kto kupuje</div>
                             </div>
                             {wishlist}
-                            {this.state.addGiftAvailable && <AddGiftRow />}
+                            {this.state.addGiftAvailable && <AddGiftRow delete={this.delete} />}
                         </div>
                         {!this.state.addGiftAvailable &&
                             <>
