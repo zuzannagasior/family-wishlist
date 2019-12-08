@@ -25,8 +25,14 @@ class AddGiftRow extends React.Component {
                         <textarea placeholder="Dodaj link do prezentu (opcjonalnie)..." ></textarea>
                     </div>
                     <div className="action-btn-group">
-                        <img className="accept-icon-add" alt="accept" src={acceptIcon} />
-                        <img onClick={this.props.delete} id="addGiftCancel" className="cancel-icon-add" alt="exit" src={cancelIcon} />
+                        <img className="accept-icon" alt="accept" src={acceptIcon} />
+                        <img onClick={this.props.delete} id="addGiftCancel" className="cancel-icon" alt="exit" src={cancelIcon} />
+                    </div>
+                </div>
+                <div className="sub-wishlist-row">
+                    <div className="action-btn-group-sm">
+                        <img className="accept-icon-sm" alt="accept" src={acceptIcon} />
+                        <img onClick={this.props.delete} id="addGiftCancel" className="cancel-icon-sm" alt="exit" src={cancelIcon} />
                     </div>
                 </div>
             </>
