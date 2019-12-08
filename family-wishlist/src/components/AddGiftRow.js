@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/AddGiftRow.css';
 import acceptIcon from '../assets/icons/accept.svg';
-import binGrey from '../assets/icons/bin-grey.svg';
+import cancelIcon from '../assets/icons/exit.svg';
 
 class AddGiftRow extends React.Component {
     // constructor(props) {
@@ -25,8 +25,8 @@ class AddGiftRow extends React.Component {
                         <textarea placeholder="Dodaj link do prezentu (opcjonalnie)..." ></textarea>
                     </div>
                     <div className="action-btn-group">
-                        <img className="accept-icon" alt="accept" src={acceptIcon} />
-                        <img onClick={this.props.delete} id="addGiftBin" className="wishlist-bin" alt="delete" src={binGrey} />
+                        <img className="accept-icon-add" alt="accept" src={acceptIcon} />
+                        <img onClick={this.props.delete} id="addGiftCancel" className="cancel-icon-add" alt="exit" src={cancelIcon} />
                     </div>
                 </div>
             </>
