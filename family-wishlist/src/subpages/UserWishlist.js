@@ -33,7 +33,7 @@ class UserWishlist extends React.Component {
         super(props);
         this.isWishlistMine = (props.match.params.user === props.match.params.userWishlistId) ? 1 : 0;
         // tst
-        // this.isWishlistMine = 1;
+        this.isWishlistMine = 1;
         console.log('this.isWishlistMine', this.isWishlistMine);
         console.log('props', props)
         this.sessionUser = props.match.params.user;
@@ -51,7 +51,7 @@ class UserWishlist extends React.Component {
     }
 
     delete = (e) => {
-        if(e.target.id === 'addGiftBin') {
+        if(e.target.id === 'addGiftCancel') {
             this.setState({ addGiftAvailable: false });
         } else if(e.target.id === 'deleteAccount') {
             console.log('usuniecie konta');
@@ -73,7 +73,7 @@ class UserWishlist extends React.Component {
                             <div className="header-delete-section">
                                 <header className="user-header">Zuzia</header>
                                 <div id="deleteAccount" onClick={this.delete} className="delete-account">
-                                    <img className="bin-icon" alt="binIcon" src={binRed} />Usuń konto
+                                    <img className="bin-icon" alt="binIcon" src={binRed} /><span className="sm-display-none">Usuń konto</span>
                             </div>
                             </div>
                             <NavLink to={`/home/${this.sessionUser}`} className="return"><img className="return-arrow" alt="leftArrow" src={arrow} />Powrót</NavLink>
