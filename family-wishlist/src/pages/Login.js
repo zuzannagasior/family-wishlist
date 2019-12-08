@@ -9,26 +9,47 @@ class Login extends React.Component {
         console.log(props)
     }
     state = {
-        user:  {value: 'Gość', label: 'Gość' },
+        user: { value: 'Gość', label: 'Gość' },
         newUser: "",
-        addFamilyMember: 0
+        newUserAvId: "",
+        addFamilyMember: 0,
+        submitted: 0
     }
 
     handleSelectChange = (u) => {
-        this.setState({user: u});
+        this.setState({ user: u });
     }
 
     handleInputChange = (e) => {
-        this.setState({newUser: e.target.value});
+        this.setState({ newUser: e.target.value });
     }
 
-    handleClick = () => {
+    showAddUserSection = () => {
+        // reset values
         this.setState((prevState) => {
-            return { 
+            return {
                 addFamilyMember: !prevState.addFamilyMember,
-                newUser: ""
+                newUser: "",
+                newUserAvId: "",
+                submitted: 0
             }
         });
+    }
+
+    chooseAvatar = (e) => {
+        this.setState({ newUserAvId: e.target.id });
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+
+        //validation
+        if (!this.state.newUser || !this.state.newUserAvId) {
+            this.setState({ submitted: 1 });
+            return;
+        }
+
+        console.log('handleSubmit')
     }
 
     render() {
@@ -36,11 +57,11 @@ class Login extends React.Component {
             <>
                 <header className="login-header">Rodzinna lista prezentowa</header>
                 <main className="login-main">
-                    <section className={"section-select-user "  + (this.state.addFamilyMember && "hide")}>
+                    <section className={"section-select-user " + (this.state.addFamilyMember && "hide")}>
                         <SelectUser onChange={this.handleSelectChange} user={this.state.user} addFamilyMember={this.state.addFamilyMember} />
                     </section>
                     <section className={"section-add-f-member"}>
-                        {<AddFamilyMember onClick={this.handleClick} onChange={this.handleInputChange} addFamilyMember={this.state.addFamilyMember} newUser={this.state.newUser} />}
+                        <AddFamilyMember chooseAvatar={this.chooseAvatar} showAddUserSection={this.showAddUserSection} onChange={this.handleInputChange} onSubmit={this.handleSubmit} state={this.state} />
                     </section>
                 </main>
             </>

@@ -151,8 +151,15 @@
     outline: 1px solid #A0A0A0;
 }
 
+.error-icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 8px;
+    transform: translateY(4px);
+}
+
 .choose-avatar-cont {
-    width: 40vw;
+    width: 50vw;
     margin-bottom: 32px;
     text-align: left;
 
@@ -162,12 +169,34 @@
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 16px;
+    margin-left: 8px;
+}
+
+.av-cont {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .add-user-av {
     width: 80px;
     height: 80px;
+    margin: 8px;
+    transition: .2s;
+    cursor: pointer;
+
 }
+
+.add-user-av:hover {
+    transform: scale(1.2);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+.av-active {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 
 .add-btn-group {
     display: flex;
