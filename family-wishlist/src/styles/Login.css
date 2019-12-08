@@ -6,8 +6,7 @@
     align-items: center;
     font-size: 72px;
     text-align: center;
-    padding-top: 64px;
-    padding-bottom: 64px;
+    padding: 64px 16px;
 }
 
 .login-main {
@@ -163,6 +162,11 @@
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 16px;
+}
+
+.add-user-av {
+    width: 80px;
+    height: 80px;
 }
 
 .add-btn-group {
