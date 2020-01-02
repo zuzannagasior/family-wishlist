@@ -41,6 +41,7 @@ class WishlistRow extends React.Component {
     }
 
     onResize = () => {
+        console.log('window.innerWidth', window.innerWidth);
         if (window.innerWidth > 540) {
             this.setState({
                 showMore: false
@@ -91,6 +92,8 @@ class WishlistRow extends React.Component {
                         }
                         <img onClick={this.showMore} className={"more " + (this.state.showMore && "rotate-180")} alt="more" src={more} />
                     </div>
+                    {/* <img onClick={this.showMore} className={"more " + (this.state.showMore && "rotate-180")} alt="more" src={more} /> */}
+
                 </div>
                 {this.state.showMore && <div className="sub-wishlist-row">
                     {!this.props.isWishlistMine && <div className="who-buys-sm">
