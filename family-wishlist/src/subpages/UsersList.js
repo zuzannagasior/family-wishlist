@@ -1,109 +1,67 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
 
 import avatar from '../assets/avatars/avatarrandom.svg';
 
-
-const usersData = [
-    {
-        name: "Zuzia",
-        avatarId: "0",
-        userId: "75346"
-    },
-    {
-        name: "Zuzia",
-        avatarId: "0",
-        userId: "2532"
-    },
-    {
-        name: "Zuzia",
-        avatarId: "0",
-        userId: "2314"
-    },
-    {
-        name: "Zuzia",
-        avatarId: "0",
-        userId: "24452"
-    },
-    {
-        name: "Zuzia",
-        avatarId: "0",
-        userId: "45614"
-    },
-    {
-        name: "Zuzia",
-        avatarId: "0",
-        userId: "5354"
-    },
-    {
-        name: "Zuzia",
-        avatarId: "0",
-        userId: "erfrf3"
-    },
-    {
-        name: "Zuzia",
-        avatarId: "0",
-        userId: "fvgev3"
-    },
-    {
-        name: "Zuzia",
-        avatarId: "0",
-        userId: "f34f3"
-    },
-    {
-        name: "Zuzia",
-        avatarId: "0",
-        userId: "4rt3f"
-    },
-    {
-        name: "Zuzia",
-        avatarId: "0",
-        userId: "dfwe"
-    },
-    {
-        name: "Zuzia",
-        avatarId: "0",
-        userId: "74fdv"
-    },
-    {
-        name: "Zuzia",
-        avatarId: "0",
-        userId: "g5563"
-    },
-    {
-        name: "Zuzia",
-        avatarId: "0",
-        userId: "74563"
-    },
-    {
-        name: "Zuzia",
-        avatarId: "0",
-        userId: "94563"
+class UsersList extends React.Component {
+    constructor(props) {
+        super(props);
+        console.log(props)
     }
-]
 
-const UsersList = (props) => {
-    const url = props.match.url;
+    state = {
+        usersData: [],
+        usersDataFiltered: []
+    }
+    
+    componentDidMount = () => {
+        axios.get('http://localhost:5000/users')
+            .then(response => {
+                this.setState({
+                    usersData: response.data,
+                    usersDataFiltered: response.data
+                })
+            })
+            .catch(function(error) {
+                console.log(error);
+            })
+    }
 
-    let users = usersData.map(user => (
-        <NavLink key={user.userId} className="user-container" to={`${url}/${user.userId}`}>
-            <img className="user-list-av" alt="avatarIcon" src={avatar} />
-            <span className="av-title">{user.name}</span>
-        </NavLink>
-    ))
+    handleSearch = (e) => {
+        const searchValue = e.target.value;
+        const usersDataFiltered = this.state.usersData.filter(user => user.username.toUpperCase().includes(searchValue.toUpperCase()))
 
-    console.log('users', users)
+        this.setState({
+            usersDataFiltered: usersDataFiltered
+        })
+    }
+
+render() {
+    const url = this.props.match.url;
+    const sessionUser = this.props.match.params.user;
+
+    let users = this.state.usersDataFiltered.map(user => {
+        const isWishlistMine = (user.username === sessionUser) ? 1 : 0;
+
+        return <NavLink key={user._id} className="user-container" to={`${url}/${user._id}/${isWishlistMine}`}>
+                    <img className="user-list-av" alt="avatarIcon" src={avatar} />
+                    <span className="av-title">{user.username}</span>
+            </NavLink>
+    });
+
     return (
         <>
             <header className="user-list-header">Rodzinna lista prezentowa</header>
             <section className="user-list">
-                <input type="text" name="searchUser" value={props.newUser} onChange={props.onChange} className="custom-search-input" placeholder="wyszukaj..." />
+                <input type="text" name="searchUser" onChange={this.handleSearch} className="custom-search-input" placeholder="wyszukaj..." />
                 <div className="users-container">
                     {users}
                 </div>
             </section>
         </>
-    );
+    )
+    };
 }
 
 

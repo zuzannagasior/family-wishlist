@@ -5,13 +5,6 @@ import user from '../assets/icons/user-green.svg';
 import gift from '../assets/icons/gift-red.svg';
 import arrow from '../assets/icons/arrow-grey.svg';
 
-const users = [
-    { value: 'Gość', label: 'Gość' },
-    { value: 'Zuzia', label: 'Zuzia' },
-    { value: 'Kasia', label: 'Kasia' },
-    { value: 'Michał', label: 'Michał' }
-];
-
 const userSelectStyle = {
     container: (provided) => ({
         ...provided,
@@ -63,8 +56,8 @@ const SelectUser = (props) => {
                 <Select
                     styles={userSelectStyle}
                     onChange={props.onChange}
-                    options={users}
-                    defaultValue={users[0]}
+                    options={props.usersList}
+                    defaultValue={props.user}
                     />
                 <NavLink to={{ pathname: `/home/${props.user.value}` }}><button className="go-home-btn"><img className="go-home-arrow" alt="arrowIcon" src={arrow} /></button></NavLink>
             </div>

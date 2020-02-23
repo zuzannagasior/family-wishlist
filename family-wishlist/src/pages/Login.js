@@ -2,18 +2,33 @@ import React from 'react';
 import '../styles/Login.css';
 import SelectUser from '../components/SelectUser';
 import AddFamilyMember from '../components/AddFamilyMember';
+import axios from 'axios';
+
 
 class Login extends React.Component {
-    constructor(props) {
-        super(props);
-        console.log(props)
-    }
     state = {
         user: { value: 'Gość', label: 'Gość' },
+        users: [],
         newUser: "",
         newUserAvId: "",
         addFamilyMember: 0,
         submitted: 0
+    }
+
+    componentDidMount = () => {
+        axios.get('http://localhost:5000/users')
+            .then(response => {
+                let usersList = [];
+                usersList.push(this.state.user);
+                usersList.push(...response.data.map(user => user = {value: user._id, label: user.username}));
+
+                this.setState({
+                    users: usersList
+                })
+            })
+            .catch(function(error) {
+                console.log(error);
+            })
     }
 
     handleSelectChange = (u) => {
@@ -48,8 +63,20 @@ class Login extends React.Component {
             this.setState({ submitted: 1 });
             return;
         }
-
-        console.log('handleSubmit')
+        
+        const newUser = {
+            username: this.state.newUser,
+            avatarId: this.state.newUserAvId
+        }
+        
+        axios.post('http://localhost:5000/users', newUser)
+        .then(res => {
+            console.log(res.data)
+            window.location = '/';
+        })
+        .catch(error => {
+            console.log(error);
+        });
     }
 
     render() {
@@ -58,7 +85,7 @@ class Login extends React.Component {
                 <header className="login-header">Rodzinna lista prezentowa</header>
                 <main className="login-main">
                     <section className={"section-select-user " + (this.state.addFamilyMember && "hide")}>
-                        <SelectUser onChange={this.handleSelectChange} user={this.state.user} addFamilyMember={this.state.addFamilyMember} />
+                        <SelectUser onChange={this.handleSelectChange} user={this.state.user} usersList={this.state.users} addFamilyMember={this.state.addFamilyMember} />
                     </section>
                     <section className={"section-add-f-member"}>
                         <AddFamilyMember chooseAvatar={this.chooseAvatar} showAddUserSection={this.showAddUserSection} onChange={this.handleInputChange} onSubmit={this.handleSubmit} state={this.state} />

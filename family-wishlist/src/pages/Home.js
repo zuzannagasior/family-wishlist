@@ -30,7 +30,7 @@ const Home = () => {
             <main className="home-main">
                 <Switch>
                     <Route path={match.path} exact component={UsersList} />
-                    <Route path={`${match.path}/:userWishlistId`} component={UserWishlist} />
+                    <Route path={`${match.path}/:userWishlistId:isWishlistMine`} component={UserWishlist} />
                 </Switch>
             </main>
         </div>

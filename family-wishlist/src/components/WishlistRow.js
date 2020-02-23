@@ -69,16 +69,16 @@ class WishlistRow extends React.Component {
                         {this.state.editGiftAvailable ?
                             <>
                                 <input value={item.gift} />
-                                <input value={item.giftUrl} />
+                                <input value={item.giftLink} />
                             </> :
                             <>
                                 <div className="gift-data-row">{item.gift}</div>
-                                <div className="gift-data-row"><a href={`http://${item.giftUrl}/`}>{item.giftUrl}</a></div>
+                                <div className="gift-data-row"><a href={`http://${item.giftLink}/`}>{item.giftLink}</a></div>
                             </>}
                     </div>
-                    <div className="who-buys">
+                    {!this.props.isWishlistMine && <div className="who-buys">
                         {this.state.whoBuysEditAvailable ? <input placeholder="Podaj Imię..." /> : whoBuysUser}
-                    </div>
+                    </div>}
                     <div className="action-btn-group">
                         {editMode ?
                             <>

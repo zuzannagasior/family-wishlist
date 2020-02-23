@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
 import WishlistRow from '../components/WishlistRow';
 import AddGiftRow from '../components/AddGiftRow';
 import avatar from '../assets/avatars/avatarrandom.svg';
@@ -7,42 +8,67 @@ import binRed from '../assets/icons/bin-red.svg';
 import arrow from '../assets/icons/arrow-dark-grey.svg';
 import gift from '../assets/icons/gift-light-grey.svg';
 
-const wishlistData = [
-    {
-        id: 0,
-        order: 1,
-        gift: "plakat",
-        giftUrl: "www.plakat.pl"
-    },
-    {
-        id: 1,
-        order: 2,
-        gift: "kwiatek",
-        giftUrl: "www.kwiatek.pl"
-    },
-    {
-        id: 2,
-        order: 3,
-        gift: "lodówka",
-        giftUrl: "www.lodówka.pl"
-    }
-]
+// const wishlistData = [
+//     {
+//         id: 0,
+//         order: 1,
+//         gift: "plakat",
+//         giftUrl: "www.plakat.pl"
+//     },
+//     {
+//         id: 1,
+//         order: 2,
+//         gift: "kwiatek",
+//         giftUrl: "www.kwiatek.pl"
+//     },
+//     {
+//         id: 2,
+//         order: 3,
+//         gift: "lodówka",
+//         giftUrl: "www.lodówka.pl"
+//     }
+// ]
 
 class UserWishlist extends React.Component {
     constructor(props) {
         super(props);
-        this.isWishlistMine = (props.match.params.user === props.match.params.userWishlistId) ? 1 : 0;
-        // tst
-        this.isWishlistMine = 1;
-        console.log('this.isWishlistMine', this.isWishlistMine);
-        console.log('props', props)
+        console.log('props', props);
+        this.isWishlistMine = props.match.params.isWishlistMine;
         this.sessionUser = props.match.params.user;
-        console.log('this.backUrl', this.backUrl)
-
+        this.userWishlistId = props.match.params.userWishlistId;
     }
 
     state = {
         addGiftAvailable: false,
+        wishlistData: []
+    }
+
+    componentDidMount = () => {
+        if(!!this.isWishlistMine) {
+            axios.get('http://localhost:5000/wishlist/mine/'+ this.userWishlistId)
+            .then(response => {
+                console.log('response', response);
+                this.setState({
+                    wishlistData: response.data
+                })
+            })
+            .catch(function(error) {
+                console.log(error);
+            })
+        } else {
+            axios.get('http://localhost:5000/wishlist/all/'+ this.userWishlistId)
+            .then(response => {
+                console.log('response', response);
+
+                this.setState({
+                    wishlistData: response.data
+                })
+            })
+            .catch(function(error) {
+                console.log(error);
+            }) 
+        }
+
     }
 
     addGift = () => {
@@ -60,8 +86,8 @@ class UserWishlist extends React.Component {
 
     render() {
 
-        let wishlist = wishlistData.map(item => (
-            <WishlistRow key={item.id} item={item} isWishlistMine={this.isWishlistMine} />
+        let wishlist = this.state.wishlistData.map(item => (
+            <WishlistRow key={item._id} item={item} isWishlistMine={this.isWishlistMine} />
         ));
 
         return (
@@ -71,10 +97,10 @@ class UserWishlist extends React.Component {
                         <img className="user-list-av" alt="avatarIcon" src={avatar} />
                         <div className="header-delete-section-cont">
                             <div className="header-delete-section">
-                                <header className="user-header">Zuzia</header>
-                                <div id="deleteAccount" onClick={this.delete} className="delete-account">
+                                <header className="user-header">{this.sessionUser}</header>
+                                {!!this.isWishlistMine && <div id="deleteAccount" onClick={this.delete} className="delete-account">
                                     <img className="bin-icon" alt="binIcon" src={binRed} /><span className="sm-display-none">Usuń konto</span>
-                            </div>
+                                </div>}
                             </div>
                             <NavLink to={`/home/${this.sessionUser}`} className="return"><img className="return-arrow" alt="leftArrow" src={arrow} />Powrót</NavLink>
                         </div>
@@ -83,7 +109,7 @@ class UserWishlist extends React.Component {
                         <div className="wishlist-table">
                             <div className="table-headers">
                                 <div className="table-header-1">Lista prezentowa</div>
-                                <div className="table-header-2">Kto kupuje</div>
+                                {!this.isWishlistMine && <div className="table-header-2">Kto kupuje</div>}
                             </div>
                             {wishlist}
                             {this.state.addGiftAvailable && <AddGiftRow delete={this.delete} />}
@@ -91,10 +117,10 @@ class UserWishlist extends React.Component {
                         {!this.state.addGiftAvailable &&
                             <>
                                 <div className="last-update">Ostania aktualizacja: 11-11-2019</div>
-                                <button onClick={this.addGift} className="add-gift">
+                                {!!this.isWishlistMine && <button onClick={this.addGift} className="add-gift">
                                     dodaj
                                 <img className="add-gift-gift" alt="avatarIcon" src={gift} />
-                                </button>
+                                </button>}
                             </>}
                     </section>
                 </div>
@@ -105,3 +131,4 @@ class UserWishlist extends React.Component {
 
 
 export default UserWishlist;
+
