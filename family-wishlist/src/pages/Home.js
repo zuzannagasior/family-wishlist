@@ -1,27 +1,45 @@
 import React from 'react';
 import '../styles/Home.css';
-import { NavLink, Switch, Route, useRouteMatch, useParams } from 'react-router-dom';
+import { NavLink, Switch, Route } from 'react-router-dom';
 import UsersList from '../subpages/UsersList';
 import UserWishlist from '../subpages/UserWishlist';
 import gift from '../assets/icons/gift-red.svg';
 import logout from '../assets/icons/logout.svg';
+import axios from 'axios';
 
 
+class Home extends React.Component {
+    constructor(props) {
+        super(props);
 
-const Home = () => {
+        this.isExact = props.match.isExact;
+        this.match = props.match;
+    }
 
-    const match = useRouteMatch();
-    const { isExact } = match;
-    console.log('match', match)
-    const { user } = useParams();
+    state = {
+        user: ""
+    }
+    
+    componentDidMount = () => {
+        axios.get('http://localhost:5000/users/getUserName/'+ this.match.params.user)
+        .then(response => {
+            this.setState({
+                user: response.data
+            });
+        })
+        .catch(function(error) {
+            console.log(error);
+        })
+    }
 
-    return (
+    render() {
+        return (
         <>
         <div className="home-container">
             <section className="nav-section">
-                <header className={"nav-header " + (isExact && "hide-header")}>Rodzinna lista prezentowa</header>
+                <header className={"nav-header " + (this.isExact && "hide-header")}>Rodzinna lista prezentowa</header>
                 <nav className="center-nav">
-                    <div className="nav-user"><img className="icon-nav" alt="giftIcon" src={gift} />{user}</div>
+                    <div className="nav-user"><img className="icon-nav" alt="giftIcon" src={gift} />{this.state.user}</div>
                     <div className="nav-logout" >
                         <NavLink to="/" className="logout-link"><img className="icon-logout" alt="logoutIcon" src={logout} />Wyloguj</NavLink>
                     </div>
@@ -29,14 +47,15 @@ const Home = () => {
             </section>
             <main className="home-main">
                 <Switch>
-                    <Route path={match.path} exact component={UsersList} />
-                    <Route path={`${match.path}/:userWishlistId:isWishlistMine`} component={UserWishlist} />
+                    <Route path={this.match.path} exact component={UsersList} />
+                    <Route path={`${this.match.path}/:userWishlistId`} component={UserWishlist} />
                 </Switch>
             </main>
         </div>
         </>
 
-    );
+    )
+        };
 }
 
 

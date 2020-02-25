@@ -8,42 +8,32 @@ import binRed from '../assets/icons/bin-red.svg';
 import arrow from '../assets/icons/arrow-dark-grey.svg';
 import gift from '../assets/icons/gift-light-grey.svg';
 
-// const wishlistData = [
-//     {
-//         id: 0,
-//         order: 1,
-//         gift: "plakat",
-//         giftUrl: "www.plakat.pl"
-//     },
-//     {
-//         id: 1,
-//         order: 2,
-//         gift: "kwiatek",
-//         giftUrl: "www.kwiatek.pl"
-//     },
-//     {
-//         id: 2,
-//         order: 3,
-//         gift: "lodówka",
-//         giftUrl: "www.lodówka.pl"
-//     }
-// ]
-
 class UserWishlist extends React.Component {
     constructor(props) {
         super(props);
-        console.log('props', props);
-        this.isWishlistMine = props.match.params.isWishlistMine;
         this.sessionUser = props.match.params.user;
         this.userWishlistId = props.match.params.userWishlistId;
+
+        this.isWishlistMine = (this.sessionUser === this.userWishlistId) ? 1 : 0;
     }
 
     state = {
         addGiftAvailable: false,
-        wishlistData: []
+        wishlistData: [],
+        user: ""
     }
 
     componentDidMount = () => {
+        axios.get('http://localhost:5000/users/getUserName/'+ this.userWishlistId)
+        .then(response => {
+            this.setState({
+                user: response.data
+            });
+        })
+        .catch(function(error) {
+            console.log(error);
+        })
+
         if(!!this.isWishlistMine) {
             axios.get('http://localhost:5000/wishlist/mine/'+ this.userWishlistId)
             .then(response => {
@@ -76,11 +66,25 @@ class UserWishlist extends React.Component {
         this.setState({ addGiftAvailable: true });
     }
 
+    deleteAccount = () => {
+        axios.delete('http://localhost:5000/users/'+ this.userWishlistId)
+        .then(() => {
+            window.location = '/';
+        })
+        .catch(function(error) {
+            console.log(error);
+        })
+    }
+
     delete = (e) => {
+        console.log('usuniecie konta');
+        console.log('e.target.id', e.target.id);
+
         if(e.target.id === 'addGiftCancel') {
             this.setState({ addGiftAvailable: false });
         } else if(e.target.id === 'deleteAccount') {
             console.log('usuniecie konta');
+
         }
     }
 
@@ -97,9 +101,9 @@ class UserWishlist extends React.Component {
                         <img className="user-list-av" alt="avatarIcon" src={avatar} />
                         <div className="header-delete-section-cont">
                             <div className="header-delete-section">
-                                <header className="user-header">{this.sessionUser}</header>
-                                {!!this.isWishlistMine && <div id="deleteAccount" onClick={this.delete} className="delete-account">
-                                    <img className="bin-icon" alt="binIcon" src={binRed} /><span className="sm-display-none">Usuń konto</span>
+                                <header className="user-header">{this.state.user}</header>
+                                {!!this.isWishlistMine && <div onClick={this.deleteAccount} className="delete-account" styles="backgroundColor: red">
+                                    <img className="bin-icon" alt="binIcon" src={binRed} /><span  className="sm-display-none">Usuń konto</span>
                                 </div>}
                             </div>
                             <NavLink to={`/home/${this.sessionUser}`} className="return"><img className="return-arrow" alt="leftArrow" src={arrow} />Powrót</NavLink>

@@ -39,15 +39,12 @@ class UsersList extends React.Component {
 
 render() {
     const url = this.props.match.url;
-    const sessionUser = this.props.match.params.user;
 
     let users = this.state.usersDataFiltered.map(user => {
-        const isWishlistMine = (user.username === sessionUser) ? 1 : 0;
-
-        return <NavLink key={user._id} className="user-container" to={`${url}/${user._id}/${isWishlistMine}`}>
+        return <NavLink key={user._id} className="user-container" to={`${url}/${user._id}`}>
                     <img className="user-list-av" alt="avatarIcon" src={avatar} />
                     <span className="av-title">{user.username}</span>
-            </NavLink>
+                </NavLink>
     });
 
     return (

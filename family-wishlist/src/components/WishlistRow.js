@@ -5,10 +5,13 @@ import cancelIcon from '../assets/icons/exit.svg';
 import editPen from '../assets/icons/pen-grey.svg';
 import binGrey from '../assets/icons/bin-grey.svg';
 import more from '../assets/icons/more.svg';
-
+import axios from 'axios';
 
 class WishlistRow extends React.Component {
-
+    constructor(props) {
+        super(props);
+        console.log(this.props, 'this.props');
+    }
 
     state = {
         editGiftAvailable: false,
@@ -16,12 +19,18 @@ class WishlistRow extends React.Component {
         showMore: false,
     }
 
-    edit = () => {
+    startEdit = () => {
+
+        console.log('this.props.isWishlistMine', this.props.isWishlistMine);
         if (!this.props.isWishlistMine) {
             this.setState({ whoBuysEditAvailable: true });
         } else {
             this.setState({ editGiftAvailable: true });
         }
+    }
+
+    editSave = () => {
+
     }
 
     delete = () => {
@@ -30,6 +39,19 @@ class WishlistRow extends React.Component {
         } else {
             this.setState({ editGiftAvailable: false });
         }
+    }
+
+    deleteRow = () => {
+        console.log(this.props, 'this.props')
+        const giftId = this.props.item._id;
+
+        axios.delete('http://localhost:5000/wishlist/'+ giftId)
+        .then(() => {
+            window.location = `/home/`;
+        })
+        .catch(function(error) {
+            console.log(error);
+        })
     }
 
     showMore = () => {
@@ -82,13 +104,13 @@ class WishlistRow extends React.Component {
                     <div className="action-btn-group">
                         {editMode ?
                             <>
-                                <img className="accept-icon" alt="accept" src={acceptIcon} />
+                                <img onClick={this.editSave} className="accept-icon" alt="accept" src={acceptIcon} />
                                 <img onClick={this.delete} className="cancel-icon" alt="exit" src={cancelIcon} />
                             </>
                             :
-                            <img onClick={this.edit} className={"edit-pen " + (!showDeleteBin && "margin-lr-12")} alt="edit" src={editPen} />}
+                            <img onClick={this.startEdit} className={"edit-pen " + (!showDeleteBin && "margin-lr-12")} alt="edit" src={editPen} />}
                         {showDeleteBin &&
-                            <img onClick={this.delete} className="wishlist-bin" alt="delete" src={binGrey} />
+                            <img onClick={this.deleteRow} className="wishlist-bin" alt="delete" src={binGrey} />
                         }
                         <img onClick={this.showMore} className={"more " + (this.state.showMore && "rotate-180")} alt="more" src={more} />
                     </div>
@@ -106,7 +128,7 @@ class WishlistRow extends React.Component {
                                 <img onClick={this.delete} className="cancel-icon-sm" alt="exit" src={cancelIcon} />
                             </>
                             :
-                            <img onClick={this.edit} className={"edit-pen-sm " + (!showDeleteBin && "margin-lr-12")} alt="edit" src={editPen} />}
+                            <img onClick={this.startEdit} className={"edit-pen-sm " + (!showDeleteBin && "margin-lr-12")} alt="edit" src={editPen} />}
                         {showDeleteBin &&
                             <img onClick={this.delete} className="wishlist-bin-sm" alt="delete" src={binGrey} />
                         }
