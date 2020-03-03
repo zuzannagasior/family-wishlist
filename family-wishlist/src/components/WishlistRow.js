@@ -8,20 +8,16 @@ import more from '../assets/icons/more.svg';
 import axios from 'axios';
 
 class WishlistRow extends React.Component {
-    constructor(props) {
-        super(props);
-        console.log(this.props, 'this.props');
-    }
-
     state = {
         editGiftAvailable: false,
         whoBuysEditAvailable: false,
         showMore: false,
+        gift: this.props.item.gift,
+        giftLink: this.props.item.giftLink,
+        whoBuysName: this.props.item.whoBuysName
     }
 
     startEdit = () => {
-
-        console.log('this.props.isWishlistMine', this.props.isWishlistMine);
         if (!this.props.isWishlistMine) {
             this.setState({ whoBuysEditAvailable: true });
         } else {
@@ -29,29 +25,87 @@ class WishlistRow extends React.Component {
         }
     }
 
-    editSave = () => {
-
+    onValueChange = (e) => {
+        let inputId = e.target.id;
+        if(inputId.includes('whoBuysName')){
+            inputId = 'whoBuysName';
+        }
+        const inputValue = e.target.value;
+    
+        this.setState({
+            [inputId]: inputValue
+        });
     }
 
-    delete = () => {
+    editSave = () => {
+        const giftId = this.props.item._id;
+
         if (!this.props.isWishlistMine) {
-            this.setState({ whoBuysEditAvailable: false });
+            const newWhoBuysName = {
+                giftId: giftId,
+                whoBuysName: this.state.whoBuysName
+            }
+    
+            axios.post('http://localhost:5000/wishlist/who-buys', newWhoBuysName)
+            .then(() => {
+                window.location = window.location.pathname;
+            })
+            .catch(error => {
+                console.log(error);
+            });
         } else {
-            this.setState({ editGiftAvailable: false });
+            const updatedGift = {
+                gift: this.state.gift,
+                giftLink: this.state.giftLink
+            }
+    
+            axios.post('http://localhost:5000/wishlist/update/' + giftId, updatedGift)
+            .then(() => {
+                window.location = window.location.pathname;
+            })
+            .catch(error => {
+                console.log(error);
+            });
         }
     }
 
-    deleteRow = () => {
-        console.log(this.props, 'this.props')
+    cancel = () => {
+        if (!this.props.isWishlistMine) {
+            this.setState({ 
+                whoBuysEditAvailable: false,
+                whoBuysName: this.props.item.whoBuysName
+             });
+        } else {
+            this.setState({ 
+                editGiftAvailable: false,
+                gift: this.props.item.gift,
+                giftLink: this.props.item.giftLink
+            });
+        }
+    }
+
+    delete = () => {
         const giftId = this.props.item._id;
 
-        axios.delete('http://localhost:5000/wishlist/'+ giftId)
-        .then(() => {
-            window.location = `/home/`;
-        })
-        .catch(function(error) {
-            console.log(error);
-        })
+        if (!this.props.isWishlistMine) {
+
+            axios.delete('http://localhost:5000/wishlist/who-buys/' + giftId)
+            .then(() => {
+                window.location = window.location.pathname;
+            })
+            .catch(error => {
+                console.log(error);
+            });
+
+        } else {
+            axios.delete('http://localhost:5000/wishlist/'+ giftId)
+            .then(() => {
+                window.location = window.location.pathname;
+            })
+            .catch(function(error) {
+                console.log(error);
+            })
+        }
     }
 
     showMore = () => {
@@ -63,7 +117,6 @@ class WishlistRow extends React.Component {
     }
 
     onResize = () => {
-        console.log('window.innerWidth', window.innerWidth);
         if (window.innerWidth > 540) {
             this.setState({
                 showMore: false
@@ -76,8 +129,8 @@ class WishlistRow extends React.Component {
     render() {
 
         const { item } = this.props;
-        // let whoBuysUser = 'Mikołaj';
-        let whoBuysUser = '';
+        const order = this.props.order;
+        let whoBuysUser = this.state.whoBuysName;
         const editMode = (!!this.state.whoBuysEditAvailable || !!this.state.editGiftAvailable);
         const showDeleteBin = ((!this.props.isWishlistMine && !editMode && !!whoBuysUser) || (!!this.props.isWishlistMine && !editMode));
 
@@ -85,13 +138,13 @@ class WishlistRow extends React.Component {
             <>
                 <div className={"wishlist-row " + ((item.order % 2 === 0) ? "row-2 " : "row-1 ") + (this.state.editGiftAvailable && "edit-borders")}>
                     <div className="gift-order">
-                        {item.order}
+                        {order}
                     </div>
                     <div className="giftData">
                         {this.state.editGiftAvailable ?
                             <>
-                                <input value={item.gift} />
-                                <input value={item.giftLink} />
+                                <input onChange={this.onValueChange} id="gift" value={this.state.gift} />
+                                <input onChange={this.onValueChange} id="giftLink" value={this.state.giftLink} />
                             </> :
                             <>
                                 <div className="gift-data-row">{item.gift}</div>
@@ -99,18 +152,18 @@ class WishlistRow extends React.Component {
                             </>}
                     </div>
                     {!this.props.isWishlistMine && <div className="who-buys">
-                        {this.state.whoBuysEditAvailable ? <input placeholder="Podaj Imię..." /> : whoBuysUser}
+                        {this.state.whoBuysEditAvailable ? <input onChange={this.onValueChange} id="whoBuysName1" value={this.state.whoBuysName} placeholder="Podaj Imię..." /> : whoBuysUser}
                     </div>}
                     <div className="action-btn-group">
                         {editMode ?
                             <>
                                 <img onClick={this.editSave} className="accept-icon" alt="accept" src={acceptIcon} />
-                                <img onClick={this.delete} className="cancel-icon" alt="exit" src={cancelIcon} />
+                                <img onClick={this.cancel} className="cancel-icon" alt="exit" src={cancelIcon} />
                             </>
                             :
                             <img onClick={this.startEdit} className={"edit-pen " + (!showDeleteBin && "margin-lr-12")} alt="edit" src={editPen} />}
                         {showDeleteBin &&
-                            <img onClick={this.deleteRow} className="wishlist-bin" alt="delete" src={binGrey} />
+                            <img onClick={this.delete} className="wishlist-bin" alt="delete" src={binGrey} />
                         }
                         <img onClick={this.showMore} className={"more " + (this.state.showMore && "rotate-180")} alt="more" src={more} />
                     </div>
@@ -119,13 +172,13 @@ class WishlistRow extends React.Component {
                 </div>
                 {this.state.showMore && <div className="sub-wishlist-row">
                     {!this.props.isWishlistMine && <div className="who-buys-sm">
-                        Kto kupuje: {this.state.whoBuysEditAvailable ? <input placeholder="Podaj Imię..." /> : whoBuysUser}
+                        Kto kupuje: {this.state.whoBuysEditAvailable ? <input onChange={this.onValueChange} id="whoBuysName2" value={this.state.whoBuysName} placeholder="Podaj Imię..." /> : whoBuysUser}
                     </div>}
                     <div className="action-btn-group">
                         {editMode ?
                             <>
-                                <img className="accept-icon-sm" alt="accept" src={acceptIcon} />
-                                <img onClick={this.delete} className="cancel-icon-sm" alt="exit" src={cancelIcon} />
+                                <img onClick={this.editSave} className="accept-icon-sm" alt="accept" src={acceptIcon} />
+                                <img onClick={this.cancel} className="cancel-icon-sm" alt="exit" src={cancelIcon} />
                             </>
                             :
                             <img onClick={this.startEdit} className={"edit-pen-sm " + (!showDeleteBin && "margin-lr-12")} alt="edit" src={editPen} />}

@@ -2,20 +2,17 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 
-import avatar from '../assets/avatars/avatarrandom.svg';
+import avatarsImg from '../assets/avatarsImg.js';
 
 class UsersList extends React.Component {
-    constructor(props) {
-        super(props);
-        console.log(props)
-    }
-
     state = {
         usersData: [],
         usersDataFiltered: []
     }
     
     componentDidMount = () => {
+        document.title = "Lista użytkowników - Rodzinna Lista Prezentowa";
+          
         axios.get('http://localhost:5000/users')
             .then(response => {
                 this.setState({
@@ -41,8 +38,9 @@ render() {
     const url = this.props.match.url;
 
     let users = this.state.usersDataFiltered.map(user => {
-        return <NavLink key={user._id} className="user-container" to={`${url}/${user._id}`}>
-                    <img className="user-list-av" alt="avatarIcon" src={avatar} />
+        const avatarSrc = avatarsImg.find(av => av.avId === user.avatarId.toString()).src;
+        return <NavLink key={user._id} className="user-container" to={`${url}/${user._id}/${user.avatarId}`}>
+                    <img className="user-list-av" alt="avatarIcon" src={avatarSrc} />
                     <span className="av-title">{user.username}</span>
                 </NavLink>
     });

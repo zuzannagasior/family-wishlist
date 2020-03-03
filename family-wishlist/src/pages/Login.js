@@ -16,6 +16,8 @@ class Login extends React.Component {
     }
 
     componentDidMount = () => {
+        document.title = "Wybór użytkownika - Rodzinna Lista Prezentowa";
+
         axios.get('http://localhost:5000/users')
             .then(response => {
                 let usersList = [];
@@ -90,6 +92,7 @@ class Login extends React.Component {
                     <section className={"section-add-f-member"}>
                         <AddFamilyMember chooseAvatar={this.chooseAvatar} showAddUserSection={this.showAddUserSection} onChange={this.handleInputChange} onSubmit={this.handleSubmit} state={this.state} />
                     </section>
+                    {/* Icons made by <a href="https://www.flaticon.com/authors/surang" title="surang">surang</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a> */}
                 </main>
             </>
         );

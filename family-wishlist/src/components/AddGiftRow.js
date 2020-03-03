@@ -2,14 +2,42 @@ import React from 'react';
 import '../styles/AddGiftRow.css';
 import acceptIcon from '../assets/icons/accept.svg';
 import cancelIcon from '../assets/icons/exit.svg';
+import axios from 'axios';
 
 class AddGiftRow extends React.Component {
-    // constructor(props) {
-    //     super(props);
-    // }
+    constructor(props) {
+        super(props);
+        this.sessionUser = props.sessionUser;
+    }
 
-    return = () => {
+    state= {
+        gift: "",
+        giftLink: ""
+    }
+  
+    onValueChange = (e) => {
+        const inputId = e.target.id;
+        const inputValue = e.target.value;
 
+        this.setState({
+            [inputId]: inputValue
+        });
+    }
+
+    addGift = () => {
+        const newGift = {
+            gift: this.state.gift,
+            giftLink: this.state.giftLink,
+            userId: this.sessionUser
+        }
+        
+        axios.post('http://localhost:5000/wishlist/add', newGift)
+        .then(() => {
+            window.location = window.location.pathname;
+        })
+        .catch(error => {
+            console.log(error);
+        });
     }
 
     render() {
@@ -18,14 +46,14 @@ class AddGiftRow extends React.Component {
             <>
                 <div className="add-gift-row">
                     <div className="gift-order">
-                        4
+                        {this.props.order}
                 </div>
                     <div className="addGiftData">
-                        <textarea placeholder="Dodaj prezent..." ></textarea>
-                        <textarea placeholder="Dodaj link do prezentu (opcjonalnie)..." ></textarea>
+                        <textarea onChange={this.onValueChange} id="gift" placeholder="Dodaj prezent..." ></textarea>
+                        <textarea onChange={this.onValueChange} id="giftLink" placeholder="Dodaj link do prezentu (opcjonalnie)..." ></textarea>
                     </div>
                     <div className="add-action-btn-group">
-                        <img className="accept-icon" alt="accept" src={acceptIcon} />
+                        <img onClick={this.addGift} className="accept-icon" alt="accept" src={acceptIcon} />
                         <img onClick={this.props.delete} id="addGiftCancel" className="cancel-icon" alt="exit" src={cancelIcon} />
                     </div>
                 </div>

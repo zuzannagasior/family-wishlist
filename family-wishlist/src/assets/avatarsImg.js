@@ -12,6 +12,10 @@ import av10 from '../assets/avatars/011.png';
 import av11 from '../assets/avatars/012.png';
 import av12 from '../assets/avatars/013.png';
 import av13 from '../assets/avatars/014.png';
+import av14 from '../assets/avatars/015.png';
+import av15 from '../assets/avatars/016.png';
+import av16 from '../assets/avatars/017.png';
+import av17 from '../assets/avatars/018.png';
 
 const avatarsImg = [
     {avId: '0', src: av0, description: 'avatarIcon'},
@@ -27,7 +31,11 @@ const avatarsImg = [
     {avId: '10', src: av10, description: 'avatarIcon'},
     {avId: '11', src: av11, description: 'avatarIcon'},
     {avId: '12', src: av12, description: 'avatarIcon'},
-    {avId: '13', src: av13, description: 'avatarIcon'}
+    {avId: '13', src: av13, description: 'avatarIcon'},
+    {avId: '14', src: av14, description: 'avatarIcon'},
+    {avId: '15', src: av15, description: 'avatarIcon'},
+    {avId: '16', src: av16, description: 'avatarIcon'},
+    {avId: '17', src: av17, description: 'avatarIcon'}
 ]
   
   export default avatarsImg;

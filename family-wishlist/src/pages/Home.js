@@ -11,8 +11,6 @@ import axios from 'axios';
 class Home extends React.Component {
     constructor(props) {
         super(props);
-
-        this.isExact = props.match.isExact;
         this.match = props.match;
     }
 
@@ -21,6 +19,7 @@ class Home extends React.Component {
     }
     
     componentDidMount = () => {
+        if (this.match.params.user !== "Gość") {
         axios.get('http://localhost:5000/users/getUserName/'+ this.match.params.user)
         .then(response => {
             this.setState({
@@ -29,15 +28,22 @@ class Home extends React.Component {
         })
         .catch(function(error) {
             console.log(error);
-        })
+        }) 
+        } else {
+            this.setState({
+                user: "Gość"
+            });
+        }
     }
 
     render() {
+        const isExact = this.props.match.isExact;
+
         return (
         <>
         <div className="home-container">
             <section className="nav-section">
-                <header className={"nav-header " + (this.isExact && "hide-header")}>Rodzinna lista prezentowa</header>
+                <header className={"nav-header " + (isExact && "hide-header")}>Rodzinna lista prezentowa</header>
                 <nav className="center-nav">
                     <div className="nav-user"><img className="icon-nav" alt="giftIcon" src={gift} />{this.state.user}</div>
                     <div className="nav-logout" >
@@ -48,9 +54,10 @@ class Home extends React.Component {
             <main className="home-main">
                 <Switch>
                     <Route path={this.match.path} exact component={UsersList} />
-                    <Route path={`${this.match.path}/:userWishlistId`} component={UserWishlist} />
+                    <Route path={`${this.match.path}/:userWishlistId/:avatarId`} component={UserWishlist} />
                 </Switch>
             </main>
+            {/* Icons made by <a href="https://www.flaticon.com/authors/surang" title="surang">surang</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a> */}
         </div>
         </>
 
