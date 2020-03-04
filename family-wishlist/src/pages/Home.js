@@ -56,8 +56,8 @@ class Home extends React.Component {
                     <Route path={this.match.path} exact component={UsersList} />
                     <Route path={`${this.match.path}/:userWishlistId/:avatarId`} component={UserWishlist} />
                 </Switch>
+                <footer className="home-footer">Created by Zuzanna Gąsior. Icons made by <a href="https://www.flaticon.com/authors/surang" title="surang">surang</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></footer>
             </main>
-            {/* Icons made by <a href="https://www.flaticon.com/authors/surang" title="surang">surang</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a> */}
         </div>
         </>
 

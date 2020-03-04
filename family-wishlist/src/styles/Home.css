@@ -2,7 +2,6 @@
 .home-container {
     width: 100%;
     min-height: 100vh;
-    /* display: flex; */
 }
 
 .nav-section {
@@ -82,6 +81,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: 100vh;
+}
+
+.home-footer {
+    margin: 16px;
 }
 
 /* usersList */
@@ -98,6 +102,7 @@
 
 .user-list {
     width: 100%;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -113,6 +118,7 @@
     margin-bottom: 32px;
     margin-right: 8px;
     margin-left: 8px;
+    transition: 0.1s;
 }
 
 .custom-search-input:focus {
@@ -152,10 +158,10 @@
 .user-wishlist-cont {
     width: 70%;
     height: 100%;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     margin-top: 64px;
-    justify-content: center;
 }
 
 .user-nav-section {
@@ -338,6 +344,10 @@
     .home-main {
         width: 100%;
         margin-left: 0;
+    }
+
+    .home-footer {
+        margin-bottom: 76px;
     }
     /* user-list */
 
