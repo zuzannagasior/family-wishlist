@@ -158,7 +158,7 @@ class WishlistRow extends React.Component {
                             </>}
                     </div>
                     {!this.props.isWishlistMine && <div className="who-buys">
-                        {this.state.whoBuysEditAvailable ? <input onChange={this.onValueChange} id="whoBuysName1" value={this.state.whoBuysName} placeholder="Podaj Imię..." /> : whoBuysUser}
+                        {this.state.whoBuysEditAvailable ? <input onChange={this.onValueChange} id="whoBuysName1" value={this.state.whoBuysName} placeholder="Provide name..." /> : whoBuysUser}
                     </div>}
                     <div className="action-btn-group">
                         {editMode ?
@@ -178,7 +178,7 @@ class WishlistRow extends React.Component {
                 </div>
                 {this.state.showMore && <div className="sub-wishlist-row">
                     {!this.props.isWishlistMine && <div className="who-buys-sm">
-                        Kto kupuje: {this.state.whoBuysEditAvailable ? <input onChange={this.onValueChange} id="whoBuysName2" value={this.state.whoBuysName} placeholder="Podaj Imię..." /> : whoBuysUser}
+                        Who buys: {this.state.whoBuysEditAvailable ? <input onChange={this.onValueChange} id="whoBuysName2" value={this.state.whoBuysName} placeholder="Provide name..." /> : whoBuysUser}
                     </div>}
                     <div className="action-btn-group">
                         {editMode ?

@@ -19,7 +19,7 @@ class Home extends React.Component {
     }
     
     componentDidMount = () => {
-        if (this.match.params.user !== "Gość") {
+        if (this.match.params.user !== "Guest") {
         axios.get('http://localhost:5000/users/getUserName/'+ this.match.params.user)
         .then(response => {
             this.setState({
@@ -31,7 +31,7 @@ class Home extends React.Component {
         }) 
         } else {
             this.setState({
-                user: "Gość"
+                user: "Guest"
             });
         }
     }
@@ -43,11 +43,11 @@ class Home extends React.Component {
         <>
         <div className="home-container">
             <section className="nav-section">
-                <header className={"nav-header " + (isExact && "hide-header")}>Rodzinna lista prezentowa</header>
+                <header className={"nav-header " + (isExact && "hide-header")}>Family wishlist</header>
                 <nav className="center-nav">
                     <div className="nav-user"><img className="icon-nav" alt="giftIcon" src={gift} />{this.state.user}</div>
                     <div className="nav-logout" >
-                        <NavLink to="/" className="logout-link"><img className="icon-logout" alt="logoutIcon" src={logout} />Wyloguj</NavLink>
+                        <NavLink to="/" className="logout-link"><img className="icon-logout" alt="logoutIcon" src={logout} />Log out</NavLink>
                     </div>
                 </nav>
             </section>

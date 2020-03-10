@@ -51,7 +51,7 @@ const SelectUser = (props) => {
                 <img className="icon-login" alt="userIcon" src={user} />
                 <img className="icon-login" alt="giftIcon" src={gift} />
             </div>
-            <span className={"browse-span "  + (props.addFamilyMember && "display-none")}>Przeglądaj jako:</span>
+            <span className={"browse-span "  + (props.addFamilyMember && "display-none")}>Browse as:</span>
             <div className={"user-sel-cont "  + (props.addFamilyMember && "display-none")}>
                 <Select
                     styles={userSelectStyle}

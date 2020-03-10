@@ -8,7 +8,7 @@ import axios from 'axios';
 
 class Login extends React.Component {
     state = {
-        user: { value: 'Gość', label: 'Gość' },
+        user: { value: 'Guest', label: 'Guest' },
         users: [],
         newUser: "",
         newUserAvId: "",
@@ -18,7 +18,7 @@ class Login extends React.Component {
     }
 
     componentDidMount = () => {
-        document.title = "Wybór użytkownika - Rodzinna Lista Prezentowa";
+        document.title = "User selection - Family wishlist";
 
         this.setState({ loading: true });
         axios.get('http://localhost:5000/users')
@@ -95,7 +95,7 @@ class Login extends React.Component {
         const loading = this.state.loading;
         return (
             <>
-                <header className="login-header">Rodzinna lista prezentowa</header>
+                <header className="login-header">Family wishlist</header>
                 <main className="login-main">
                     {loading ? <Loading /> :
                     <div>

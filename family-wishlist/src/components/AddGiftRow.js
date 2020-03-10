@@ -50,8 +50,8 @@ class AddGiftRow extends React.Component {
                         {this.props.order}
                 </div>
                     <div className="addGiftData">
-                        <textarea onChange={this.onValueChange} id="gift" placeholder="Dodaj prezent..." ></textarea>
-                        <textarea onChange={this.onValueChange} id="giftLink" placeholder="Dodaj link do prezentu (opcjonalnie)..." ></textarea>
+                        <textarea onChange={this.onValueChange} id="gift" placeholder="Add gift..." ></textarea>
+                        <textarea onChange={this.onValueChange} id="giftLink" placeholder="Add gift link (optional)..." ></textarea>
                     </div>
                     <div className="add-action-btn-group">
                         <img onClick={this.addGift} className="accept-icon" alt="accept" src={acceptIcon} />

@@ -13,7 +13,7 @@ class UsersList extends React.Component {
     }
 
     componentDidMount = () => {
-        document.title = "Lista użytkowników - Rodzinna Lista Prezentowa";
+        document.title = "User list - Family wishlist";
 
         this.setState({ loading: true });
         axios.get('http://localhost:5000/users')
@@ -53,10 +53,10 @@ render() {
 
     return (
         <>
-            <header className="user-list-header">Rodzinna lista prezentowa</header>
+            <header className="user-list-header">Family wishlist</header>
             {loading ? <Loading /> : 
                 <section className="user-list">
-                    <input type="text" name="searchUser" onChange={this.handleSearch} className="custom-search-input" placeholder="wyszukaj..." />
+                    <input type="text" name="searchUser" onChange={this.handleSearch} className="custom-search-input" placeholder="search..." />
                     <div className="users-container">
                         {users}
                     </div>

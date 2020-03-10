@@ -26,7 +26,7 @@ const AddFamilyMember = (props) => {
         <>
             {!addFamilyMember &&
                 <div className="add-cont-first">
-                    <span>Lub dodaj członka rodziny:</span>
+                    <span>Or add a new family member:</span>
                     <button className="add-user-btn" onClick={props.showAddUserSection}>
                         <img className="add-icon" alt="addIcon" src={add} />
                         <img className="user-icon" alt="userIcon" src={user} />
@@ -35,18 +35,18 @@ const AddFamilyMember = (props) => {
             }
             {!!addFamilyMember &&
                 <form onSubmit={props.onSubmit} className="add-cont-second">
-                    <span>Dodaj nowego członka rodziny:</span>
+                    <span>Add new family member:</span>
                     <div>
-                        <input type="text" name="inputUsername" value={newUser} onChange={props.onChange} className="custom-log-input" placeholder="Podaj Imię..." />
+                        <input type="text" name="inputUsername" value={newUser} onChange={props.onChange} className="custom-log-input" placeholder="Provide name..." />
                         {showError(newUser) && <img className="error-icon" alt="errorIcon" src={error} />}
                     </div>
                     <div className="choose-avatar-cont">
-                        <div className="title-choose-av">Wybierz avatar {showError(newUserAvId) && <img className="error-icon" alt="errorIcon" src={error} />}
+                        <div className="title-choose-av">Please choose an avatar{showError(newUserAvId) && <img className="error-icon" alt="errorIcon" src={error} />}
                         </div>
                         <div className="av-cont">{avatars}</div>
                     </div>
                     <div className="add-btn-group">
-                        <input type="submit" className="save-avatar-btn" value="Zapisz" /><NavLink to="/" onClick={props.showAddUserSection} className="add-cancel">Anuluj</NavLink>
+                        <input type="submit" className="save-avatar-btn" value="Save" /><NavLink to="/" onClick={props.showAddUserSection} className="add-cancel">Cancel</NavLink>
                     </div>
                 </form>}
         </>

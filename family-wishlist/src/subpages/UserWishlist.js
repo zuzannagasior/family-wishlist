@@ -31,7 +31,7 @@ class UserWishlist extends React.Component {
         this.setLoading(true);
         axios.get('http://localhost:5000/users/getUserName/'+ this.userWishlistId)
         .then(res => {
-            document.title = `${res.data} - lista prezentowa - Rodzinna Lista Prezentowa`;
+            document.title = `${res.data} - wishlist - Family wishlist`;
 
             this.setState({
                 user: res.data
@@ -102,20 +102,20 @@ class UserWishlist extends React.Component {
                             <div className="header-delete-section">
                                 <header className="user-header">{this.state.user}</header>
                                 {!!this.isWishlistMine && <div onClick={this.deleteAccount} className="delete-account" styles="backgroundColor: red">
-                                    <img className="bin-icon" alt="binIcon" src={binRed} /><span className="sm-display-none">Usuń konto</span>
+                                    <img className="bin-icon" alt="binIcon" src={binRed} /><span className="sm-display-none">Delete account</span>
                                 </div>}
                             </div>
-                            <NavLink to={`/home/${this.sessionUser}`} className="return"><img className="return-arrow" alt="leftArrow" src={arrow} />Powrót</NavLink>
+                            <NavLink to={`/home/${this.sessionUser}`} className="return"><img className="return-arrow" alt="leftArrow" src={arrow} />Return</NavLink>
                         </div>
                     </section>
                     {loading ? <Loading /> : 
                     <section className="main-wishlist-section">
                         <div className="wishlist-table">
-                            {(wishlistEmpty && !this.state.addGiftAvailable ) ? "Lista prezentowa jest pusta :(" :  
+                            {(wishlistEmpty && !this.state.addGiftAvailable ) ? <div style={{marginLeft: '16px'}}>This wishlist is empty :(</div> :  
                             <div>
                                 <div className="table-headers">
-                                    <div className="table-header-1">Lista prezentowa</div>
-                                    {!this.isWishlistMine && <div className="table-header-2">Kto kupuje</div>}
+                                    <div className="table-header-1">Wishlist</div>
+                                    {!this.isWishlistMine && <div className="table-header-2">Who buys</div>}
                                 </div>
                                 {wishlist}
                             </div>}
@@ -124,7 +124,7 @@ class UserWishlist extends React.Component {
                         {!this.state.addGiftAvailable &&
                             <>
                                 {!!this.isWishlistMine && <button onClick={this.addGift} className="add-gift">
-                                    dodaj
+                                    add
                                 <img className="add-gift-gift" alt="avatarIcon" src={gift} />
                                 </button>}
                             </>}
