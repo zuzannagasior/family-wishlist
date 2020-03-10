@@ -40,6 +40,7 @@ class WishlistRow extends React.Component {
     editSave = () => {
         const giftId = this.props.item._id;
 
+        this.props.setLoading(true);
         if (!this.props.isWishlistMine) {
             const newWhoBuysName = {
                 giftId: giftId,
@@ -48,7 +49,7 @@ class WishlistRow extends React.Component {
     
             axios.post('http://localhost:5000/wishlist/who-buys', newWhoBuysName)
             .then(() => {
-                window.location = window.location.pathname;
+                this.props.loadWishlist();
             })
             .catch(error => {
                 console.log(error);
@@ -61,10 +62,11 @@ class WishlistRow extends React.Component {
     
             axios.post('http://localhost:5000/wishlist/update/' + giftId, updatedGift)
             .then(() => {
-                window.location = window.location.pathname;
+                this.props.loadWishlist();
             })
             .catch(error => {
                 console.log(error);
+                this.props.setLoading(false);
             });
         }
     }
@@ -87,23 +89,27 @@ class WishlistRow extends React.Component {
     delete = () => {
         const giftId = this.props.item._id;
 
+        this.props.setLoading(true);
+
         if (!this.props.isWishlistMine) {
 
             axios.delete('http://localhost:5000/wishlist/who-buys/' + giftId)
             .then(() => {
-                window.location = window.location.pathname;
+                this.props.loadWishlist();
             })
             .catch(error => {
                 console.log(error);
+                this.props.setLoading(false);
             });
 
         } else {
             axios.delete('http://localhost:5000/wishlist/'+ giftId)
             .then(() => {
-                window.location = window.location.pathname;
+                this.props.loadWishlist();
             })
             .catch(function(error) {
                 console.log(error);
+                this.props.setLoading(false);
             })
         }
     }

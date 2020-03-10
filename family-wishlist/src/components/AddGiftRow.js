@@ -30,10 +30,11 @@ class AddGiftRow extends React.Component {
             giftLink: this.state.giftLink,
             userId: this.sessionUser
         }
-        
+
+        this.props.setLoading(true);
         axios.post('http://localhost:5000/wishlist/add', newGift)
         .then(() => {
-            window.location = window.location.pathname;
+            this.props.loadWishlist();
         })
         .catch(error => {
             console.log(error);

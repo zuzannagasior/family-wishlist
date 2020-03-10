@@ -7,7 +7,7 @@ import binRed from '../assets/icons/bin-red.svg';
 import arrow from '../assets/icons/arrow-dark-grey.svg';
 import gift from '../assets/icons/gift-light-grey.svg';
 import avatarsImg from '../assets/avatarsImg.js';
-
+import Loading from '../components/Loading';
 
 class UserWishlist extends React.Component {
     constructor(props) {
@@ -22,10 +22,13 @@ class UserWishlist extends React.Component {
     state = {
         addGiftAvailable: false,
         wishlistData: [],
-        user: ""
+        user: "",
+        loading: false
     }
 
     componentDidMount = () => {
+
+        this.setLoading(true);
         axios.get('http://localhost:5000/users/getUserName/'+ this.userWishlistId)
         .then(res => {
             document.title = `${res.data} - lista prezentowa - Rodzinna Lista Prezentowa`;
@@ -38,16 +41,21 @@ class UserWishlist extends React.Component {
             console.log(error);
         })
 
+        this.loadWishlist();
+    }
+
+    loadWishlist = () => {
         axios.get('http://localhost:5000/wishlist/all/'+ this.userWishlistId)
         .then(res => {
             this.setState({
-                wishlistData: res.data
-            })
-        
+                wishlistData: res.data,
+                loading: false
+            })    
         })
         .catch(function(error) {
             console.log(error);
-        }) 
+            this.setLoading(false);
+        })
     }
 
     addGift = () => {
@@ -55,6 +63,7 @@ class UserWishlist extends React.Component {
     }
 
     deleteAccount = () => {
+        this.setLoading(true);
         axios.delete('http://localhost:5000/users/'+ this.userWishlistId)
         .then(() => {
             window.location = '/';
@@ -70,13 +79,19 @@ class UserWishlist extends React.Component {
         }
     }
 
+    setLoading = (param) => {
+        this.setState({loading: param});
+    }
+
     render() {
 
         let wishlist = this.state.wishlistData.map((item, index)=> (
-            <WishlistRow key={item._id} order={index + 1} item={item} isWishlistMine={this.isWishlistMine} />
+            <WishlistRow key={item._id} order={index + 1} item={item} isWishlistMine={this.isWishlistMine} setLoading={(param) => this.setLoading(param)} loadWishlist={this.loadWishlist}/>
         ));
 
         const avatarSrc = avatarsImg.find(av => av.avId === this.avatarId).src;
+        const loading = this.state.loading;
+        const wishlistEmpty = this.state.wishlistData.length === 0;
 
         return (
             <>
@@ -93,14 +108,18 @@ class UserWishlist extends React.Component {
                             <NavLink to={`/home/${this.sessionUser}`} className="return"><img className="return-arrow" alt="leftArrow" src={arrow} />Powrót</NavLink>
                         </div>
                     </section>
+                    {loading ? <Loading /> : 
                     <section className="main-wishlist-section">
                         <div className="wishlist-table">
-                            <div className="table-headers">
-                                <div className="table-header-1">Lista prezentowa</div>
-                                {!this.isWishlistMine && <div className="table-header-2">Kto kupuje</div>}
-                            </div>
-                            {wishlist}
-                            {this.state.addGiftAvailable && <AddGiftRow sessionUser={this.sessionUser} delete={this.delete} order={this.state.wishlistData.length + 1} />}
+                            {(wishlistEmpty && !this.state.addGiftAvailable ) ? "Lista prezentowa jest pusta :(" :  
+                            <div>
+                                <div className="table-headers">
+                                    <div className="table-header-1">Lista prezentowa</div>
+                                    {!this.isWishlistMine && <div className="table-header-2">Kto kupuje</div>}
+                                </div>
+                                {wishlist}
+                            </div>}
+                            {this.state.addGiftAvailable && <AddGiftRow sessionUser={this.sessionUser} delete={this.delete} order={this.state.wishlistData.length + 1} setLoading={(param) => this.setLoading(param)} loadWishlist={this.loadWishlist}/>}
                         </div>
                         {!this.state.addGiftAvailable &&
                             <>
@@ -109,7 +128,7 @@ class UserWishlist extends React.Component {
                                 <img className="add-gift-gift" alt="avatarIcon" src={gift} />
                                 </button>}
                             </>}
-                    </section>
+                    </section>}
                 </div>
             </>
         );

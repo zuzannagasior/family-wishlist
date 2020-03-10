@@ -2,26 +2,31 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 
+import Loading from '../components/Loading';
 import avatarsImg from '../assets/avatarsImg.js';
 
 class UsersList extends React.Component {
     state = {
         usersData: [],
-        usersDataFiltered: []
+        usersDataFiltered: [],
+        loading: false
     }
-    
+
     componentDidMount = () => {
         document.title = "Lista użytkowników - Rodzinna Lista Prezentowa";
-          
+
+        this.setState({ loading: true });
         axios.get('http://localhost:5000/users')
             .then(response => {
                 this.setState({
                     usersData: response.data,
-                    usersDataFiltered: response.data
+                    usersDataFiltered: response.data, 
+                    loading: false
                 })
             })
             .catch(function(error) {
                 console.log(error);
+                this.setState({ loading: false });
             })
     }
 
@@ -36,6 +41,7 @@ class UsersList extends React.Component {
 
 render() {
     const url = this.props.match.url;
+    const loading = this.state.loading;
 
     let users = this.state.usersDataFiltered.map(user => {
         const avatarSrc = avatarsImg.find(av => av.avId === user.avatarId.toString()).src;
@@ -48,12 +54,14 @@ render() {
     return (
         <>
             <header className="user-list-header">Rodzinna lista prezentowa</header>
-            <section className="user-list">
-                <input type="text" name="searchUser" onChange={this.handleSearch} className="custom-search-input" placeholder="wyszukaj..." />
-                <div className="users-container">
-                    {users}
-                </div>
-            </section>
+            {loading ? <Loading /> : 
+                <section className="user-list">
+                    <input type="text" name="searchUser" onChange={this.handleSearch} className="custom-search-input" placeholder="wyszukaj..." />
+                    <div className="users-container">
+                        {users}
+                    </div>
+                </section>
+            }
         </>
     )
     };
