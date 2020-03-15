@@ -17,6 +17,14 @@
     border-bottom: 1px solid #F5F5F5;
 }
 
+.gift-data-row {
+    text-overflow: ellipsis;
+    overflow: hidden; 
+    width: calc(100% - 8px); 
+    /* height: 1.2em;  */
+    white-space: nowrap;
+}
+
 .sub-wishlist-row {
     width: 100%;
     min-height: 32px;

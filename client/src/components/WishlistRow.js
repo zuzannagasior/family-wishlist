@@ -142,7 +142,7 @@ class WishlistRow extends React.Component {
 
         return (
             <>
-                <div className={"wishlist-row " + ((item.order % 2 === 0) ? "row-2 " : "row-1 ") + (this.state.editGiftAvailable && "edit-borders")}>
+                <div className={"wishlist-row " + ((order % 2 === 0) ? "row-2 " : "row-1 ") + (this.state.editGiftAvailable && "edit-borders")}>
                     <div className="gift-order">
                         {order}
                     </div>
@@ -153,7 +153,7 @@ class WishlistRow extends React.Component {
                                 <input onChange={this.onValueChange} id="giftLink" value={this.state.giftLink} />
                             </> :
                             <>
-                                <div className="gift-data-row">{item.gift}</div>
+                                <div>{item.gift}</div>
                                 <div className="gift-data-row"><a href={`http://${item.giftLink}/`}>{item.giftLink}</a></div>
                             </>}
                     </div>

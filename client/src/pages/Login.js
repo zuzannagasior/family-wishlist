@@ -19,7 +19,10 @@ class Login extends React.Component {
 
     componentDidMount = () => {
         document.title = "User selection - Family wishlist";
+        this.getUsers();
+    }
 
+    getUsers = () => {
         this.setState({ loading: true });
         axios.get('/users')
             .then(response => {
@@ -83,6 +86,7 @@ class Login extends React.Component {
                 addFamilyMember: false,
                 loading: false 
             });
+            this.getUsers();
         })
         .catch(error => {
             console.log(error);
