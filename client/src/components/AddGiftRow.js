@@ -60,7 +60,7 @@ class AddGiftRow extends React.Component {
                 </div>
                 <div className="sub-wishlist-row">
                     <div className="add-action-btn-group-sm">
-                        <img className="accept-icon-sm" alt="accept" src={acceptIcon} />
+                        <img onClick={this.addGift} className="accept-icon-sm" alt="accept" src={acceptIcon} />
                         <img onClick={this.props.delete} id="addGiftCancel" className="cancel-icon-sm" alt="exit" src={cancelIcon} />
                     </div>
                 </div>
