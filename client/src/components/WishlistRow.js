@@ -47,7 +47,7 @@ class WishlistRow extends React.Component {
                 whoBuysName: this.state.whoBuysName
             }
     
-            axios.post('http://localhost:5000/wishlist/who-buys', newWhoBuysName)
+            axios.post('/wishlist/who-buys', newWhoBuysName)
             .then(() => {
                 this.props.loadWishlist();
             })
@@ -60,7 +60,7 @@ class WishlistRow extends React.Component {
                 giftLink: this.state.giftLink
             }
     
-            axios.post('http://localhost:5000/wishlist/update/' + giftId, updatedGift)
+            axios.post('/wishlist/update/' + giftId, updatedGift)
             .then(() => {
                 this.props.loadWishlist();
             })
@@ -93,7 +93,7 @@ class WishlistRow extends React.Component {
 
         if (!this.props.isWishlistMine) {
 
-            axios.delete('http://localhost:5000/wishlist/who-buys/' + giftId)
+            axios.delete('/wishlist/who-buys/' + giftId)
             .then(() => {
                 this.props.loadWishlist();
             })
@@ -103,7 +103,7 @@ class WishlistRow extends React.Component {
             });
 
         } else {
-            axios.delete('http://localhost:5000/wishlist/'+ giftId)
+            axios.delete('/wishlist/'+ giftId)
             .then(() => {
                 this.props.loadWishlist();
             })

@@ -21,7 +21,7 @@ class Login extends React.Component {
         document.title = "User selection - Family wishlist";
 
         this.setState({ loading: true });
-        axios.get('http://localhost:5000/users')
+        axios.get('/users')
             .then(response => {
                 let usersList = [];
                 usersList.push(this.state.user);
@@ -76,7 +76,7 @@ class Login extends React.Component {
         }
 
         this.setState({ loading: true });
-        axios.post('http://localhost:5000/users', newUser)
+        axios.post('/users', newUser)
         .then(res => {
             console.log(res);
             this.setState({ 

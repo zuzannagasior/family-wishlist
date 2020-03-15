@@ -29,7 +29,7 @@ class UserWishlist extends React.Component {
     componentDidMount = () => {
 
         this.setLoading(true);
-        axios.get('http://localhost:5000/users/getUserName/'+ this.userWishlistId)
+        axios.get('/users/getUserName/'+ this.userWishlistId)
         .then(res => {
             document.title = `${res.data} - wishlist - Family wishlist`;
 
@@ -45,7 +45,7 @@ class UserWishlist extends React.Component {
     }
 
     loadWishlist = () => {
-        axios.get('http://localhost:5000/wishlist/all/'+ this.userWishlistId)
+        axios.get('/wishlist/all/'+ this.userWishlistId)
         .then(res => {
             this.setState({
                 wishlistData: res.data,
@@ -64,7 +64,7 @@ class UserWishlist extends React.Component {
 
     deleteAccount = () => {
         this.setLoading(true);
-        axios.delete('http://localhost:5000/users/'+ this.userWishlistId)
+        axios.delete('/users/'+ this.userWishlistId)
         .then(() => {
             window.location = '/';
         })

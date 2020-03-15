@@ -16,7 +16,7 @@ class UsersList extends React.Component {
         document.title = "User list - Family wishlist";
 
         this.setState({ loading: true });
-        axios.get('http://localhost:5000/users')
+        axios.get('/users')
             .then(response => {
                 this.setState({
                     usersData: response.data,

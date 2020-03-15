@@ -20,7 +20,7 @@ class Home extends React.Component {
     
     componentDidMount = () => {
         if (this.match.params.user !== "Guest") {
-        axios.get('http://localhost:5000/users/getUserName/'+ this.match.params.user)
+        axios.get('/users/getUserName/'+ this.match.params.user)
         .then(response => {
             this.setState({
                 user: response.data

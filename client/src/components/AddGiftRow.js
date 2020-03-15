@@ -32,7 +32,7 @@ class AddGiftRow extends React.Component {
         }
 
         this.props.setLoading(true);
-        axios.post('http://localhost:5000/wishlist/add', newGift)
+        axios.post('/wishlist/add', newGift)
         .then(() => {
             this.props.loadWishlist();
         })
