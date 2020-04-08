@@ -13,8 +13,53 @@ Mongoose, Node.JS.
 Family Wishlist App was created for my family to use it. 
 The idea for the app came to my mind during one family meeting when we all together decided that we want to be using wishlist like this one.
 
+## Demo
+https://family-wishlist-zg.herokuapp.com/
+
 ## Scope of functionalities
 - Adding new family members to the family wishlist.
 - Creating wishlists from each user view.
 - Browsing other family members wishlists.
+- Informing other family members who is buying particular gift from the wishlist.
+
+## Installation
+
+1. Clone this repo.
+```shell
+$ git clone https://github.com/zuzannagasior/family-wishlist.git
+```
+
+2. Go into the repo.
+```shell
+$ cd family-wishlist
+```
+
+3. Install all dependencies.
+```shell
+$ npm install
+```
+
+4. Create .env file in main folder and add MONGODB_URI or ATLAS_URI to add local database.
+
+5. Run server.
+```shell
+$ npm start server.js
+```
+
+6. Go into the 'client' folder.
+```shell
+$ cd client
+```
+
+7. Install dependencies.
+```shell
+$ npm install
+```
+
+8. Run this app in browser.
+```shell
+$ npm start
+```
+
+
 
