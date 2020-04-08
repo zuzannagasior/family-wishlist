@@ -154,7 +154,7 @@ class WishlistRow extends React.Component {
                             </> :
                             <>
                                 <div>{item.gift}</div>
-                                <div className="gift-data-row"><a href={`http://${item.giftLink}/`}>{item.giftLink}</a></div>
+                                <div className="gift-data-row"><a href={item.giftLink} target="_blank">{item.giftLink}</a></div>
                             </>}
                     </div>
                     {!this.props.isWishlistMine && <div className="who-buys">
