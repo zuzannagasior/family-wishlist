@@ -13,8 +13,12 @@ Mongoose, Node.JS.
 Family Wishlist App was created for my family to use it. 
 The idea for the app came to my mind during one family meeting when we all together decided that we want to be using wishlist like this one.
 
-## Demo
-https://family-wishlist-zg.herokuapp.com/
+## UX Project & Live Demo
+See UX project -->
+https://www.figma.com/file/eAYJURJqNUZG68YIIbXvwA/familyWishlist_first?node-id=0%3A1
+
+See live demo -->
+https://family-wishlist-demo.herokuapp.com/
 
 ## Scope of functionalities
 - Adding new family members to the family wishlist.
